@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { PageComponent } from './page/page.component';
 import { BookselfComponent } from './bookself/bookself.component';
 import { SidenaviComponent } from './sidenavi/sidenavi.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { SidenaviComponent } from './sidenavi/sidenavi.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,6 @@
-import { ShareSource } from "../share_src/abstractbook";
 const fs = require("fs-extra");
 const path = require("path");
+import { ShareSource } from "../share_src/abstractbook";
 export namespace StoreBook {
   const FILENAME_BOOKINFO:string = "bookinfo.txt";
   const FILENAME_BOOKJSON:string = "bookinfo.json";

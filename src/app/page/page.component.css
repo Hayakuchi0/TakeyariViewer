@@ -1,0 +1,32 @@
+* {
+  margin:0;
+  padding:0;
+}
+:host {
+  position:absolute;
+  top:0;
+  margin:0;
+  padding:0;
+  right:0%;
+  width:80%;
+  background-color:#cfcfcf;
+}
+#controlspace {
+  left:0;
+  top:0;
+  width:20%;
+  height:100%;
+}
+#dataspace {
+  display:block;
+  position:absolute;
+  top:0;
+  left:20%;
+  width:80%;
+  height:100%;
+  background-color:#efefef;
+}
+#viewing {
+  display:inline-block;
+  position:absolute;
+}

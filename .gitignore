@@ -3,7 +3,10 @@
 # compiled output
 /dist
 /tmp
-/out-tsc
+/store_bundle
+/src/app/books.js
+/src/assets/books
+
 # Only exists if Bazel was run
 /bazel-out
 

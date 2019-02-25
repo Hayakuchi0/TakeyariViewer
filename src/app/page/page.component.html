@@ -1,0 +1,12 @@
+<div id="controlspace">
+  <h1>{{ title }}</h1>
+  <p>
+    <input type="text" id="pagenumber" (keyup.enter)="jump();">
+    <button (click)="jump();">ジャンプ</button>
+    <button (click)="goBeforePage();">前のページ</button>
+    <button (click)="goNextPage();">次のページ</button>
+  </p>
+</div>
+<div id="dataspace">
+    <object data="" id="viewing" (load)="onReadObject()"></object>
+</div>

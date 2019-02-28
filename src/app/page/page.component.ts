@@ -1,20 +1,28 @@
-import { Component, OnInit, HostBinding, HostListener } from '@angular/core';
+import { Component, OnInit, HostBinding, HostListener, ViewChild, AfterViewInit } from '@angular/core';
 import { Book, Books, BooksListener } from '../book';
+import { PagecontrolComponent, PagecontrolListener} from './pagecontrol/pagecontrol.component'
 
 @Component({
   selector: 'app-page',
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.css']
 })
-export class PageComponent implements OnInit,BooksListener {
+export class PageComponent implements OnInit, BooksListener, PagecontrolListener {
   private _books: Books;
+  @ViewChild(PagecontrolComponent)
+  controller:PagecontrolComponent;
   @HostBinding('style.height') height: string;
   @HostBinding('tabIndex') tabIndex:string;
+  @HostBinding('style.top') top:string;
   private _nowpage:number;
   constructor() {
-    this.nowpage = 1;
     this.height = (window.innerHeight).toString() + "px";
     this.tabIndex = "0";
+  }
+  ngAfterViewInit() {
+    if(this.controller) {
+      this.controller.listeners.push(this);
+    }
   }
   get book():Book {
     if(this.books) {
@@ -23,43 +31,38 @@ export class PageComponent implements OnInit,BooksListener {
       return undefined;
     }
   }
-  get nowpage():number {
-    return this. _nowpage;
-  }
   set nowpage(page:number) {
-    if(this.book) {
-      if(page < 1) {
-        this._nowpage = 1;
-     } else if (this.book.extname.length<=page) {
-        this._nowpage = this.book.extname.length;
-      } else {
-        this._nowpage = page;
-      }
-      let objecttag = document.getElementById("viewing");
-      if(objecttag) {
-        objecttag["data"] = this.pageSrc;
-      }
-    } else {
-      this._nowpage = 0;
+    if(this.controller) {
+      this.controller.nowpage = page;
     }
-    let inputtag = document.getElementById("pagenumber");
-    if(inputtag) {
-      inputtag["value"] = this._nowpage;
+  }
+  get nowpage():number {
+    if(this.controller) {
+      return this.controller.nowpage;
+    } else {
+      return 0;
     }
   }
   get pageSrc():string {
-    return this.book.getSrcName(this.nowpage);
+    if(this.book && this.controller) {
+      return this.book.getSrcName(this.controller.nowpage);
+    }
+    return "";
   }
-  goBeforePage():void {
-    this.nowpage--;
+  onSetX(beforeX:number, beforeY:number):void {
+    //まだ
   }
-  goNextPage():void {
-    this.nowpage++;
+  onSetY(beforeX:number, beforeY:number):void {
+    //まだ
   }
-  jump():void {
-    let inputtag = document.getElementById("pagenumber");
-    if(inputtag["value"]) {
-      this.nowpage = inputtag["value"];
+  onSetPage(beforePage:number, afterPage:number):void {
+    let objecttag = document.getElementById("viewing");
+    if(objecttag) {
+      objecttag["data"] = this.pageSrc;
+    }
+    let objectLinkTag = document.getElementById("viewing-link");
+    if(objectLinkTag) {
+      objectLinkTag["href"] = this.pageSrc;
     }
   }
   get title():string {
@@ -73,10 +76,14 @@ export class PageComponent implements OnInit,BooksListener {
   onKeyUp(event: any) {
     switch(event.key) {
       case "ArrowRight":
-        this.goNextPage();
+        if(this.controller) {
+          this.controller.goNextPage();
+        }
         break;
       case "ArrowLeft":
-        this.goBeforePage();
+        if(this.controller) {
+          this.controller.goBeforePage();
+        }
         break;
       default:
         break;
@@ -88,7 +95,17 @@ export class PageComponent implements OnInit,BooksListener {
   set books(books:Books) {
     if(books) {
       this._books = books;
-      this.books.listeners.push(this);
+      if(books.listeners) {
+        let notAdded:boolean = true;
+        let me = this;
+        books.listeners.forEach(function(listener) {
+          notAdded = (notAdded && (listener==me));
+        });
+        if(notAdded) {
+          books.listeners.push(this);
+        }
+      }
+      this.controller.books = books;
     }
   }
   get books():Books {

@@ -1,0 +1,6 @@
+<input type="text" id="pagenumber" placeholder="ページナンバー" (keyup.enter)="jump()"><br>
+<input type="text" id="pageX" placeholder="X" value="0"><br>
+<input type="text" id="pageY" placeholder="Y" value="0"><br>
+<button (click)="goBeforePage()">前のページ</button>
+<button (click)="jump()">ジャンプ</button>
+<button (click)="goNextPage()">次のページ</button>

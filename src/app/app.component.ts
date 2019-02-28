@@ -2,7 +2,7 @@ import { Component, ViewChild, ViewChildren, QueryList, AfterViewInit, ChangeDet
 import { Book, Books } from './book'
 import { PageComponent } from './page/page.component'
 import { BookselfComponent } from './bookself/bookself.component'
-import { SidenaviComponent } from './sidenavi/sidenavi.component'
+import { FramenavComponent } from './framenav/framenav.component'
 
 @Component({
   selector: 'app-root',
@@ -10,20 +10,8 @@ import { SidenaviComponent } from './sidenavi/sidenavi.component'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterViewInit {
-  books:Books;
-  title:string;
-  @ViewChild(PageComponent)
-  pageobject:PageComponent;
-  @ViewChild(SidenaviComponent)
-  sidenavi:SidenaviComponent;
   constructor(private cdr:ChangeDetectorRef) {
-    this.title = "ImageViewer";
-    this.books = new Books("assets/books");
   }
   ngAfterViewInit(){
-    this.pageobject.books = this.books;
-    this.pageobject.nowpage = 1;
-    this.sidenavi.books = this.books;
-    this.cdr.detectChanges();
   }
 }

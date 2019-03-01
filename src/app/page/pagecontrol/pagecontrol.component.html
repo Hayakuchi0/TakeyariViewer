@@ -1,6 +1,10 @@
-<input type="text" id="pagenumber" placeholder="ページナンバー" (keyup.enter)="jump()"><br>
-<input type="text" id="pageX" placeholder="X" value="0"><br>
-<input type="text" id="pageY" placeholder="Y" value="0"><br>
-<button (click)="goBeforePage()">前のページ</button>
-<button (click)="jump()">ジャンプ</button>
-<button (click)="goNextPage()">次のページ</button>
+<p>
+<button (click)="goBeforePage()">前のページ</button><button (click)="goNextPage()">次のページ</button><br>
+page:<input type="text" id="pageNumber" placeholder="ページナンバー" (keyup.enter)="jump()"><button (click)="jump()">ジャンプ</button><br>
+X:<input type="text" id="pageX" placeholder="X" value="0" (keyup)="onXEdited()"><br>
+Y:<input type="text" id="pageY" placeholder="Y" value="0" (keyup)="onYEdited()"><br>
+拡大率(%):<input type="text" id="zoomPercent" placeholder="拡大率(%)" value="100" (keyup)="onZoomEdited()"><br>
+</p>
+<p>
+<ng-container *ngFor="let line of message">{{ line }}<br></ng-container>
+</p>

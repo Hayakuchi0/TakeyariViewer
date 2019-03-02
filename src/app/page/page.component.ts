@@ -21,8 +21,41 @@ export class PageComponent implements OnInit, AfterViewInit {
   }
   set height(height:string) {
     this._height = height;
-    if(this.viewer) {
-      this.viewer.height = height;
+    if(this.viewer && this.controller) {
+      let controlSpace = document.getElementById("controlspace");
+      let dataSpace = document.getElementById("dataspace");
+      if(controlSpace && dataSpace) {
+        let pageWidth = controlSpace.offsetWidth + dataSpace.offsetWidth;
+        let pageHeight = controlSpace.offsetHeight + dataSpace.offsetHeight;
+        if(controlSpace.offsetWidth == dataSpace.offsetWidth) {
+          pageWidth = pageWidth/2;
+        } else {
+          pageHeight = pageHeight/2;
+        }
+        if(pageWidth>pageHeight) {
+          controlSpace.style["top"] = "0%";
+          controlSpace.style["left"] = "0%";
+          controlSpace.style["width"] = "20%";
+          controlSpace.style["height"] = "100%";
+          dataSpace.style["top"] = "0%";
+          dataSpace.style["left"] = "20%";
+          dataSpace.style["width"] = "80%";
+          dataSpace.style["height"] = "100%";
+        } else {
+          controlSpace.style["top"] = "70%";
+          controlSpace.style["left"] = "0%";
+          controlSpace.style["width"] = "100%";
+          controlSpace.style["height"] = "30%";
+          dataSpace.style["top"] = "0%";
+          dataSpace.style["left"] = "0%";
+          dataSpace.style["width"] = "100%";
+          dataSpace.style["height"] = "70%";
+        }
+        let viewerHeight = dataSpace.offsetHeight;
+        let controllerHeight = controlSpace.offsetHeight;
+        this.viewer.height = viewerHeight + "px";
+        this.controller.height = controllerHeight + "px";
+      }
     }
   }
   constructor() {

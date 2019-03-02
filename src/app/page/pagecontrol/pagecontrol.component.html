@@ -1,10 +1,24 @@
-<p>
-<button (click)="goBeforePage()">前のページ</button><button (click)="goNextPage()">次のページ</button><br>
-page:<input type="text" id="pageNumber" placeholder="ページナンバー" (keyup.enter)="jump()"><button (click)="jump()">ジャンプ</button><br>
-X:<input type="text" id="pageX" placeholder="X" value="0" (keyup)="onXEdited()"><br>
-Y:<input type="text" id="pageY" placeholder="Y" value="0" (keyup)="onYEdited()"><br>
-拡大率(%):<input type="text" id="zoomPercent" placeholder="拡大率(%)" value="100" (keyup)="onZoomEdited()"><br>
-</p>
-<p>
-<ng-container *ngFor="let line of message">{{ line }}<br></ng-container>
-</p>
+<div id="control-panel">
+  <div class="control-line-button">
+    <button (click)="goBeforePage()">前のページ</button><button (click)="jump()">ジャンプ</button><button (click)="goNextPage()">次のページ</button>
+  </div>
+  <div class="control-line">
+    <span class="input-mean">page:</span><input type="text" id="pageNumber" placeholder="ページナンバー" (keyup.enter)="jump()" class="input-value">
+  </div>
+  <div class="only-pc">
+    <div class="control-line">
+      <span class="input-mean">X:</span><input type="text" id="pageX" placeholder="X" value="0" (keyup)="onXEdited()" class="input-value">
+    </div>
+    <div class="control-line">
+      <span class="input-mean">Y:</span><input type="text" id="pageY" placeholder="Y" value="0" (keyup)="onYEdited()" class="input-value">
+    </div>
+    <div class="control-line">
+      <span class="input-mean">拡大率(%):</span><input type="text" id="zoomPercent" placeholder="拡大率(%)" value="100" (keyup)="onZoomEdited()" class="input-value">
+    </div>
+  </div>
+</div>
+<div id="shortcut-panel">
+  <p class="only-pc">
+    <ng-container *ngFor="let line of message">{{ line }}<br></ng-container>
+  </p>
+</div>

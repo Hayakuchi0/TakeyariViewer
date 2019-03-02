@@ -62,11 +62,8 @@ export class PageviewComponent implements OnInit, BooksListener, PagecontrolList
   onSetPage(beforePage:number, afterPage:number):void {
     let objecttag = document.getElementById("viewing");
     if(objecttag) {
-      objecttag["data"] = this.pageSrc;
-    }
-    let objectLinkTag = document.getElementById("viewing-link");
-    if(objectLinkTag) {
-      objectLinkTag["href"] = this.pageSrc;
+      objecttag["src"] = "";
+      objecttag["src"] = this.pageSrc;
     }
   }
   get title():string {
@@ -171,10 +168,8 @@ export class PageviewComponent implements OnInit, BooksListener, PagecontrolList
       dataspace.style.height = this.height;
       let deg:number = this.book.spindeg;
       let rad = deg*Math.PI/180;
-      objecttag.style.width = "";
-      objecttag.style.height = "";
-      let objectWidth:number = objecttag.offsetWidth;
-      let objectHeight:number = objecttag.offsetHeight;
+      let objectWidth:number = objecttag["naturalWidth"];
+      let objectHeight:number = objecttag["naturalHeight"];
       let spaceWidth:number = dataspace.offsetWidth;
       let spaceHeight:number = dataspace.offsetHeight;
       let drawWidth:number = (Math.cos(rad)*spaceWidth)+(Math.sin(rad)*spaceHeight);
@@ -192,16 +187,16 @@ export class PageviewComponent implements OnInit, BooksListener, PagecontrolList
         zoomPercent = this.controller.zoomPercent;
       }
       if(objectAspect > spaceAspect ) {
-        drawWidth = objectWidth * drawHeight / objectHeight;
+        drawWidth = drawHeight / objectAspect;
       } else {
-        drawHeight = objectHeight * drawWidth / objectWidth;
+        drawHeight = drawWidth * objectAspect;
       }
       drawWidth = drawWidth * (zoomPercent/100);
       drawHeight = drawHeight * (zoomPercent/100);
       drawLeft = ((spaceWidth - drawWidth )/2)+controlX;
       drawTop = ((spaceHeight - drawHeight)/2)+controlY;
-      objecttag.style.width = drawWidth + "px";
-      objecttag.style.height = drawHeight + "px";
+      objecttag["width"] = drawWidth.toString();
+      objecttag["height"] = drawHeight.toString();
       objecttag.style.left = drawLeft + "px";
       objecttag.style.top = drawTop + "px";
       objecttag.style.transform = "rotate(" + deg.toString() + "deg)";

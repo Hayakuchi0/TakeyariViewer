@@ -1,4 +1,8 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef, HostBinding } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Book, Books, BooksListener } from '../../book';
 
 export interface PagecontrolListener {
@@ -21,7 +25,14 @@ export class PagecontrolComponent implements OnInit, AfterViewInit, BooksListene
   private _nowpage:number;
   private _message:string[];
   listeners:PagecontrolListener[];
-  constructor(private cdr:ChangeDetectorRef) { }
+  @HostBinding('style.height') _height: string;
+  get height():string {
+    return this._height;
+  }
+  set height(height:string) {
+    this._height = height;
+  }
+  constructor(private breakpointObserver:BreakpointObserver,private cdr:ChangeDetectorRef) { }
   ngOnInit() {
     this.listeners = [];
     this._message=[];
@@ -187,5 +198,14 @@ export class PagecontrolComponent implements OnInit, AfterViewInit, BooksListene
     this.pageInput = document.getElementById("pageNumber");
     this.xInput = document.getElementById("pageX");
     this.yInput = document.getElementById("pageY");
+    let me = this;
+    this.breakpointObserver.observe(Breakpoints.Handset).subscribe((state:BreakpointState)=> {
+      if(state.matches) {
+        let pcOnlyAreas = document.getElementsByClassName("only-pc");
+        Array.prototype.forEach.call(pcOnlyAreas,divtag=>(divtag.style["display"] = "none"));
+        let controlPanel = document.getElementById("control-panel");
+        controlPanel.style["height"]="100%";
+      }
+    });
   }
 }

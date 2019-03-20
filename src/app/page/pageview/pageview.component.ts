@@ -2,6 +2,11 @@ import { Component, OnInit, HostBinding, HostListener, AfterViewInit } from '@an
 import { Book, Books, BooksListener } from '../../book';
 import { PagecontrolComponent, PagecontrolListener} from '../pagecontrol/pagecontrol.component'
 
+enum ContentType {
+  IMAGE,
+  VIDEO,
+  OBJECT
+}
 @Component({
   selector: 'app-pageview',
   templateUrl: './pageview.component.html',
@@ -50,6 +55,34 @@ export class PageviewComponent implements OnInit, BooksListener, PagecontrolList
     }
     return "";
   }
+  get pageType():ContentType {
+    if(this.book) {
+      let nowExt = this.book.getNowExtName(this.controller.nowpage).toUpperCase();
+      if((nowExt===".JPG") || (nowExt===".JPEG") || (nowExt===".PNG") || (nowExt===".GIF") || (nowExt===".SVG")) {
+        return ContentType.IMAGE;
+      } else if ((nowExt===".OGV")||(nowExt===".AVI")||(nowExt===".MP4")){
+        return ContentType.VIDEO;
+      }
+    }
+    return ContentType.OBJECT;
+  }
+  get pageIsImg():boolean {
+    return (this.pageType === ContentType.IMAGE);
+  }
+  get pageIsVideo():boolean {
+    return (this.pageType === ContentType.VIDEO);
+  }
+  get pageIsObject():boolean {
+    return (this.pageType === ContentType.OBJECT);
+  }
+  get pageId():string {
+    if(this.pageIsImg) {
+      return "viewingImg";
+    } else if(this.pageIsVideo) {
+      return "viewingVideo";
+    }
+    return "viewingObject";
+  }
   onSetX(beforeX:number, beforeY:number):void {
     this.onReadObject();
   }
@@ -60,10 +93,20 @@ export class PageviewComponent implements OnInit, BooksListener, PagecontrolList
     this.onReadObject();
   }
   onSetPage(beforePage:number, afterPage:number):void {
-    let objecttag = document.getElementById("viewing");
+    let objecttag = document.getElementById(this.pageId);
+    Array.from(document.getElementsByClassName("viewing")).forEach(function(tag:HTMLElement){
+      tag.style["visibility"]="hidden";
+    });
+    objecttag.style["visibility"]="visible";
+    objecttag.style["display"]="block";
     if(objecttag) {
-      objecttag["src"] = "";
-      objecttag["src"] = this.pageSrc;
+      if(this.pageIsImg || this.pageIsVideo) {
+        objecttag["src"] = "";
+        objecttag["src"] = this.pageSrc;
+      } else {
+        objecttag["data"] = "";
+        objecttag["data"] = this.pageSrc;
+      }
     }
   }
   get title():string {
@@ -145,16 +188,7 @@ export class PageviewComponent implements OnInit, BooksListener, PagecontrolList
   set books(books:Books) {
     if(books) {
       this._books = books;
-      if(books.listeners) {
-        let notAdded:boolean = true;
-        let me = this;
-        books.listeners.forEach(function(listener) {
-          notAdded = (notAdded && (!(listener==me)));
-        });
-        if(notAdded) {
-          books.listeners.push(this);
-        }
-      }
+      this._books.addBooksListener(this);
       this.controller.books = books;
     }
   }
@@ -162,14 +196,19 @@ export class PageviewComponent implements OnInit, BooksListener, PagecontrolList
     return this._books;
   }
   onReadObject():void {
-    let objecttag = document.getElementById("viewing");
+    let objecttag = document.getElementById(this.pageId);
     let dataspace = document.getElementById("dataspace");
     if(dataspace && objecttag) {
+      console.log(objecttag);
       dataspace.style.height = this.height;
       let deg:number = this.book.spindeg;
       let rad = deg*Math.PI/180;
-      let objectWidth:number = objecttag["naturalWidth"];
-      let objectHeight:number = objecttag["naturalHeight"];
+      let objectWidth:number = (Math.cos(rad)*dataspace.offsetWidth)+(Math.sin(rad)*dataspace.offsetHeight);
+      let objectHeight:number = (Math.cos(rad)*dataspace.offsetHeight)+(Math.sin(rad)*dataspace.offsetWidth);
+      if(this.pageIsImg) {
+        objectHeight = objecttag["naturalHeight"];
+        objectWidth = objecttag["naturalWidth"];
+      }
       let spaceWidth:number = dataspace.offsetWidth;
       let spaceHeight:number = dataspace.offsetHeight;
       let drawWidth:number = (Math.cos(rad)*spaceWidth)+(Math.sin(rad)*spaceHeight);
@@ -194,11 +233,21 @@ export class PageviewComponent implements OnInit, BooksListener, PagecontrolList
       drawWidth = drawWidth * (zoomPercent/100);
       drawHeight = drawHeight * (zoomPercent/100);
       drawLeft = ((spaceWidth - drawWidth )/2)+controlX;
+      if(isNaN(drawLeft)) {
+        drawLeft = 0;
+      }
       drawTop = ((spaceHeight - drawHeight)/2)+controlY;
-      objecttag["width"] = drawWidth.toString();
-      objecttag["height"] = drawHeight.toString();
-      objecttag.style.left = drawLeft + "px";
-      objecttag.style.top = drawTop + "px";
+      if(isNaN(drawTop)) {
+        drawTop = 0;
+      }
+      if(!isNaN(drawWidth)) {
+        objecttag["width"] = drawWidth.toString();
+      }
+      if(!isNaN(drawHeight)) {
+        objecttag["height"] = drawHeight.toString();
+      }
+      objecttag.style["left"] = drawLeft.toString() + "px";
+      objecttag.style["top"] = drawTop.toString() + "px";
       objecttag.style.transform = "rotate(" + deg.toString() + "deg)";
     }
   }

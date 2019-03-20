@@ -1,0 +1,5 @@
+This is sample about message.
+
+Site infomation writed here.
+
+You may input here to your name, site description, address , etc.

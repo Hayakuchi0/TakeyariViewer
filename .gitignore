@@ -4,8 +4,11 @@
 /dist
 /tmp
 /store_bundle
-/src/app/books.js
-/src/assets/books
+/src/favicon.ico
+/src/assets/topimage.png
+/src/assets/CONTENT/*
+/src/app/outjs/*
+/CONTENT/*
 
 # Only exists if Bazel was run
 /bazel-out

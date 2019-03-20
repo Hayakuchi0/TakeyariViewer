@@ -46,6 +46,9 @@ export class PagecontrolComponent implements OnInit, AfterViewInit, BooksListene
   set nowpage(page:number) {
     let beforePage:number = this.nowpage;
     let nowpage:number = page;
+    if(isNaN(nowpage)) {
+      nowpage = 1;
+    }
     if(this.book) {
       if(page < 1) {
         nowpage = 1;
@@ -78,7 +81,7 @@ export class PagecontrolComponent implements OnInit, AfterViewInit, BooksListene
   set books(books:Books) {
     if(books) {
       this._books = books;
-      this.books.listeners.push(this);
+      this.books.addBooksListener(this);
     }
   }
   get books():Books {

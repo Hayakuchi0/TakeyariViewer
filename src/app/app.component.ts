@@ -1,17 +1,14 @@
-import { Component, ViewChild, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { Book, Books } from './book'
-import { PageComponent } from './page/page.component'
-import { BookselfComponent } from './bookself/bookself.component'
-import { FramenavComponent } from './framenav/framenav.component'
-
+import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { SITENAME } from './siteinfo';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [ Title ]
 })
-export class AppComponent implements AfterViewInit {
-  constructor(private cdr:ChangeDetectorRef) {
-  }
-  ngAfterViewInit(){
+export class AppComponent {
+  constructor(private title:Title) {
+    this.title.setTitle(SITENAME);
   }
 }

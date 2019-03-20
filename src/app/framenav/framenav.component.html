@@ -3,13 +3,11 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="!(isHandset$ | async)">
-    <mat-toolbar>Menu</mat-toolbar>
+    <mat-toolbar>Menu<button mat-button (click)="openShare();" class="share-button">SHARE</button></mat-toolbar>
     <mat-nav-list>
-      <ng-container *ngIf="books">
-        <ng-container *ngFor="let book of books.books">
-          <app-bookself id="{{ book.dirname }}" mat-list-item></app-bookself>
-        </ng-container>
-      </ng-container>
+      <button mat-button (click)="viewTop();" class="menu-button">TOP</button>
+      <button mat-button (click)="viewAbout();" class="menu-button">ABOUT</button>
+      <app-booktree></app-booktree>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

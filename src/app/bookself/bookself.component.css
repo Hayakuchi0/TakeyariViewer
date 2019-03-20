@@ -1,9 +1,13 @@
+:host {
+  width:100%;
+}
 button {
   border:0px solid #7f7f7f;
   border-top:1px solid #7f7f7f;
   border-bottom:1px solid #7f7f7f;
+  min-height:48px;
   width:100%;
-  background-color:#cfcfcf;
+  background-color:#ffffff;
 }
 button:hover {
   background-color:#efefef;

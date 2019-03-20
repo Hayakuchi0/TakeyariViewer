@@ -10,6 +10,30 @@
   right:0%;
   width:100%;
 }
+#topspace {
+  position:absolute;
+  visibility:visible;
+  right:0;
+  top:0;
+  width:100%;
+  height:100%;
+}
+#aboutspace {
+  position:absolute;
+  visibility:hidden;
+  right:0;
+  top:0;
+  width:100%;
+  height:100%;
+}
+#pagespace {
+  position:absolute;
+  visibility:hidden;
+  right:0;
+  top:0;
+  width:100%;
+  height:100%;
+}
 #controlspace {
   display:block;
   position:relative;

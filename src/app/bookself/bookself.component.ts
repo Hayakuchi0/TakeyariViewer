@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, Input } from '@angular/core';
 import { Books } from '../book';
 
 export interface BookselfListener {
@@ -10,9 +10,9 @@ export interface BookselfListener {
   styleUrls: ['./bookself.component.css']
 })
 export class BookselfComponent implements OnInit {
-  title:string;
-  dirname:string;
-  books:Books;
+  @Input('title') title:string;
+  @Input('dirname') dirname:string;
+  @Input('books') books:Books;
   listeners:BookselfListener[];
   constructor() {
   }

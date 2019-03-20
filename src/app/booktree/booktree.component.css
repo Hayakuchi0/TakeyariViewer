@@ -1,0 +1,17 @@
+.type-icon {
+  color: #757575;
+  margin-right: 5px;
+}
+mat-tree-node {
+  display:flex-inline;
+}
+mat-icon {
+  position:absolute;
+  right:0;
+}
+button {
+  flex:1 1 auto;
+  border-radius:0;
+  width:100%;
+  text-align:left;
+}

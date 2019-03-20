@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "gallery": {
+    "TakeyariViewer": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/gallery",
+            "outputPath": "dist/TakeyariViewer",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -59,18 +59,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "gallery:build"
+            "browserTarget": "TakeyariViewer:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "gallery:build:production"
+              "browserTarget": "TakeyariViewer:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "gallery:build"
+            "browserTarget": "TakeyariViewer:build"
           }
         },
         "test": {
@@ -105,7 +105,7 @@
         }
       }
     },
-    "gallery-e2e": {
+    "TakeyariViewer-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -114,11 +114,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "gallery:serve"
+            "devServerTarget": "TakeyariViewer:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "gallery:serve:production"
+              "devServerTarget": "TakeyariViewer:serve:production"
             }
           }
         },
@@ -134,5 +134,5 @@
       }
     }
   },
-  "defaultProject": "gallery"
+  "defaultProject": "TakeyariViewer"
 }

@@ -1,5 +1,6 @@
 const fs = require("fs-extra");
 const path = require("path");
+const iconv = require("iconv-lite");
 import { AbstractBook,BookSelf, FILENAME_BOOKSLIST, FILENAME_BOOKSLISTJS, FILENAME_BOOKSPACEJS } from "../share_src/index";
 export namespace StoreBook {
   const FILENAME_BOOKINFO:string = "bookinfo.txt";
@@ -12,7 +13,7 @@ export namespace StoreBook {
       let titlePath:string = path.join(directoryAbsolutePath, FILENAME_BOOKINFO);
       let jsonPath:string = path.join(directoryAbsolutePath, FILENAME_BOOKJSON);
       if(fs.existsSync(jsonPath)) {
-        let jsonString:string = fs.readFileSync(jsonPath, BOOK_ENCODE);
+        let jsonString:string = iconv.decode(fs.readFileSync(jsonPath), BOOK_ENCODE);
         let json = JSON.parse(jsonString);
         if(json["title"]) {
           this.title = json["title"];
@@ -21,7 +22,7 @@ export namespace StoreBook {
           this.spindeg = json["spindeg"];
         }
       } else if(fs.existsSync(titlePath)) {
-        let title:string = fs.readFileSync(titlePath, BOOK_ENCODE);
+        let title:string = iconv.decode(fs.readFileSync(titlePath),BOOK_ENCODE);
         this.title = title;
         if(this.title.endsWith("\n")) {
           this.title = this.title.slice(0, -1);
@@ -63,7 +64,7 @@ export namespace StoreBook {
       this.books.forEach(function(value, key, map) {
         value.storeCopyBook(basedirpath,storedirpath);
       });
-      fs.writeFileSync(path.join(storedirpath, FILENAME_BOOKSLIST),JSON.stringify(this.getBookListJson()), BOOK_ENCODE);
+      fs.writeFileSync(path.join(storedirpath, FILENAME_BOOKSLIST),JSON.stringify(this.getBookListJson()), "utf-8");
     }
     storeJS(scriptdirpath,basedirpath):void {
       this.storeBookList(scriptdirpath);
@@ -73,7 +74,7 @@ export namespace StoreBook {
       let booklist = this.getBookListJson();
       let outjson = "exports.booklist = "+ JSON.stringify(booklist) + ";";
       fs.mkdirsSync(scriptdirpath);
-      fs.writeFileSync(path.join(scriptdirpath, FILENAME_BOOKSLISTJS),outjson, BOOK_ENCODE);
+      fs.writeFileSync(path.join(scriptdirpath, FILENAME_BOOKSLISTJS),outjson, "utf-8");
     }
     private storeBookSpace(scriptdirpath,basedirpath):void {
       let bookSpaceList:{name:string,path:string}[] = [];
@@ -82,14 +83,14 @@ export namespace StoreBook {
       let storeBookSelf = new BookSelf();
       Books.searchDirRoot(bookSpaceDirs, basedirpath,[FILENAME_BOOKSPACE]);
       bookSpaceDirs.forEach(function(bookSpacePath){
-        let spaceName:string = fs.readFileSync(path.join(path.join(basedirpath,bookSpacePath),FILENAME_BOOKSPACE),BOOK_ENCODE);
+        let spaceName:string = iconv.decode(fs.readFileSync(path.join(path.join(basedirpath,bookSpacePath),FILENAME_BOOKSPACE)),BOOK_ENCODE);
         if(spaceName.endsWith("\n")) {
           spaceName = spaceName.slice(0, -1);
         }
         bookSpaceList.push({name:spaceName,path:bookSpacePath});
       });
       let outjson = "exports.bookSpaceList = "+ JSON.stringify(bookSpaceList)+";";
-      fs.writeFileSync(path.join(scriptdirpath, FILENAME_BOOKSPACEJS),outjson, BOOK_ENCODE);
+      fs.writeFileSync(path.join(scriptdirpath, FILENAME_BOOKSPACEJS),outjson, "utf-8");
       this.books.forEach(function(value,key,map) {
         storeBookSelf.books.push(value);
       });

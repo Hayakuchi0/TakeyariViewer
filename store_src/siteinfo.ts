@@ -1,6 +1,7 @@
 const fs = require("fs-extra");
 const path = require("path");
 const markdown = require("markdown");
+const iconv = require("iconv-lite");
 import { AbstractSite, FAVICON_PATH, TOPIMAGE_PATH, ABOUTIMAGE_PATH } from "../share_src/index";
 export namespace StoreSite {
   const CONFIGFILE_FAVICON:string="favicon.ico";
@@ -9,15 +10,15 @@ export namespace StoreSite {
   const CONFIGFILE_ABOUT:string="about.txt";
   const CONFIGFILE_SITENAME:string="sitename.txt";
   const CONFIGFILE_COPYRIGHT:string="copyright.txt";
+  const CONFIGFILE_ENCODING:string="encoding.txt";
   const WRITETARGET_SITEINFOJS:string="src/app/outjs/siteinfo.js";
   const WRITETARGET_ABOUTHTML:string="src/app/about/about.component.html";
   export class SiteInfo extends AbstractSite {
     configdirpath:string;
     encoding:string;
-    constructor(configdirpath:string, encoding:string) {
+    constructor(configdirpath:string) {
       super();
       this.configdirpath = configdirpath;
-      this.encoding = encoding;
     }
     readconfig():void {
       this.siteName = this.readConfigFile(CONFIGFILE_SITENAME);
@@ -35,8 +36,13 @@ export namespace StoreSite {
       fs.writeFileSync(WRITETARGET_SITEINFOJS, siteinfo, "utf-8");
       fs.writeFileSync(WRITETARGET_ABOUTHTML, this.about, "utf-8");
     }
-    private readConfigFile(filename):string {
-      let ret:string = fs.readFileSync(path.join(this.configdirpath, filename),this.encoding);
+    private readConfigFile(filename:string,encoding?:string):string {
+      if(!(encoding)) {
+        encoding = this.readConfigFile(CONFIGFILE_ENCODING,"utf-8");
+      }
+      this.encoding = encoding;
+      let buffer = fs.readFileSync(path.join(this.configdirpath,filename));
+      let ret:string = iconv.decode(buffer,this.encoding);
       if(ret.endsWith("\n")) {
         ret = ret.slice(0,-1);
       }

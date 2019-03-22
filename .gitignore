@@ -9,6 +9,7 @@
 /src/assets/CONTENT/*
 /src/app/outjs/*
 /CONTENT/*
+/example
 
 # Only exists if Bazel was run
 /bazel-out

@@ -38,13 +38,13 @@ export namespace StoreBook {
       for(let i=0,index=0;i<dir.length;i++) {
         let filename:string = dir[i];
         if((filename!=FILENAME_BOOKINFO)&&(filename!=FILENAME_BOOKJSON)) {
-          index++;
-          console.log("copying " + filename);
           this.extname[index] = path.extname(filename);
+          index++;
           let pagename:string = this.getSrcName(index);
           let srcpath:string = path.join(srcdir, filename);
           let destpath:string = path.join(destdir, pagename);
           fs.copyFileSync(srcpath, destpath);
+          console.log("copying " + filename);
         }
       }
     }

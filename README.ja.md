@@ -32,6 +32,7 @@ Ubuntuでのデモンストレーション。
 ```
 $ git clone https://github.com/Hayakuchi0/TakeyariViewer.git
 $ cd TakeyariViewer
+$ wget https://hinesm.info/TakeyariViewer/demo/example.zip
 $ unzip example.zip
 $ mv example CONTENT
 $ ./build.sh

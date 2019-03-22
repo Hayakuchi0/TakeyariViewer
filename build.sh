@@ -25,22 +25,6 @@ function exist_check()
 }
 exist_check node nodejs nodejs
 exist_check npm npm npm
-command_exit=true
-if !(type "tsc" > /dev/null 2>&1)
-then
-  command_exit=false
-  echo "tsc is not exist"
-fi
-if !(type "ng" > /dev/null 2>&1)
-then
-  command_exit=false
-  echo "ng-cli is not exist"
-fi
-if ${command_exit}
-then
-  build_takeyari
-else
-  npm install
-  PATH="${PATH}:${here}/node_modules/.bin"
-  build_takeyari
-fi
+npm install
+PATH="${PATH}:${here}/node_modules/.bin"
+build_takeyari

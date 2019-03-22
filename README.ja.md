@@ -36,6 +36,7 @@ $ wget https://hinesm.info/TakeyariViewer/demo/example.zip
 $ unzip example.zip
 $ mv example CONTENT
 $ ./build.sh
+$ ng serve
 ```
 
 

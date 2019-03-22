@@ -35,6 +35,9 @@ export namespace StoreBook {
       let dir:string[] = fs.readdirSync(srcdir);
       fs.mkdirsSync(destdir);
       fs.emptyDirSync(destdir);
+      dir.forEach(function(filename:string){
+        console.log("copying " + filename);
+      });
       for(let i=0,index=0;i<dir.length;i++) {
         let filename:string = dir[index];
         if((filename!=FILENAME_BOOKINFO)&&(filename!=FILENAME_BOOKJSON)) {

@@ -1,6 +1,6 @@
 # TakeyariViewer
 
-This is program for make protfolio site simply.
+This is program for make portfolio site simply.
 
 
 ## Description

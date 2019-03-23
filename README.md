@@ -17,9 +17,9 @@ How to make basic is here.
 
 If "bookinfo.txt" and the display files exist in directory, and it in "CONTENT", Then the portfolio site show the display files.
 
-If exist more than 1 directory, Which maked procedure 1, Then the portfolio site show list directory. ("bookinfo.txt" need exist in each direcotry.)
+If exist more than 1 directory, Which made in procedure 1, Then the portfolio site display the list of directory. ("bookinfo.txt" need exist in each direcotry.)
 
-If directory in directory, Then The portfolio site show list structure, Do not show tree structure.
+If directory in directory, Then The portfolio site display the list structure, Do not display the tree structure.
 
 
 ## Dependencies
@@ -58,8 +58,8 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## Edit the portfolio site
 
-You can edit the portfolio site part.
-This is all of part, which can edit.
+You can edit part of the portfolio site.
+This is all of config, which can edit it.
 
 ### Site information
 
@@ -83,11 +83,11 @@ And the "aboutimage.png" used as background image of the site descriptiion in "A
 
 #### Site image
 
-The "topimage.png" displayed in top page of the portfolio site.
+The "topimage.png" display in top page of the portfolio site.
 
 And "favicon.ico" used as favion of the portfolio site.
 
-### Bundle directory as tree structure
+### Bundle the directory as tree structure
 
 You can bundle direcory, which stored at procedure 1 of "Description", As tree structure.
 The "bookspace.txt" stored to directory, which function as branch of tree structure. 

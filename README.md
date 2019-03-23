@@ -10,8 +10,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 If use this program, You can make the portfolio site simply.
 How to make basic is here.
 
-1. Store the directory containg the display files in the "CONTENT" directory.
-2. Store the text file "bookinfo.txt", Which writed directory title for display in the directory, Which maked at procedure of 1.
+1. Store the directory containg the display files, In the "CONTENT" directory.
+2. Store the text file "bookinfo.txt", Which writed directory title for display in the directory, Which stored at procedure of 1.
 3. Build in accordance with the procedure of "Build".
 4. The portfolio site is then generated in "dist/TakeyariViewer" directory.
 
@@ -54,6 +54,47 @@ Run `./build.sh` to build the project. The build artifacts will be stored in the
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+
+## Edit the portfolio site
+
+You can edit the portfolio site part.
+This is all of part, which can edit.
+
+### Site information
+
+If you edit file in "CONFIG" directory, Then You can edit site information.
+
+#### Site name
+
+If text written in "sitename.txt", Then the portfolio site use it as site name.
+Default is "TakeyariViewer".
+
+#### Copyright
+
+If text written in "copyright.txt", Then the portfolio site use it as copyright.
+Default is "(C) example".
+
+#### About
+
+If text written in "about.txt", Then the portfolio site display it as the site description in "ABOUT" page.
+Note format of text is markdown.
+And the "aboutimage.png" used as background image of the site descriptiion in "ABOUT" page.
+
+#### Site image
+
+The "topimage.png" displayed in top page of the portfolio site.
+
+And "favicon.ico" used as favion of the portfolio site.
+
+### Bundle directory as tree structure
+
+You can bundle direcory, which stored at procedure 1 of "Description", As tree structure.
+The "bookspace.txt" stored to directory, which function as branch of tree structure. 
+
+1. Store the text file "bookspace.txt" and the stored directories at procedure 1 of "Decription" to the directory, In "CONTENT" directory.
+2. write title as branch of tree structure to "bookspace.txt"
+3. Build in accordance with the procedure of "Build", When apply the change.
 
 
 ## LICENSE

@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "build start!"
 origin=`pwd`
 here=`dirname ${0}`
 here=`cd ${here};pwd`
@@ -31,7 +32,9 @@ function exist_check()
 }
 exist_check node nodejs nodejs
 exist_check npm npm npm
+echo "downloading dependencies package."
 npm install
+echo "building portfolio site."
 PATH="${PATH}:${here}/node_modules/.bin"
 build_takeyari
 cd ${origin}

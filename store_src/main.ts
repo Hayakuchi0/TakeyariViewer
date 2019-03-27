@@ -1,9 +1,14 @@
+const fs = require("fs-extra");
 import { StoreBook } from "./books";
 import { StoreSite } from "./siteinfo";
 let basedirpath = "./CONTENT";
 let storedirpath = "./src/assets/CONTENT/";
 let scriptdirpath = "./src/app/outjs/";
 let configdirpath = "./CONFIG";
+fs.mkdirs(basedirpath);
+fs.mkdirs(storedirpath);
+fs.mkdirs(scriptdirpath);
+fs.mkdirs(configdirpath);
 let siteinfo = new StoreSite.SiteInfo(configdirpath);
 siteinfo.configCopy();
 StoreBook.BOOK_ENCODE = siteinfo.encoding;

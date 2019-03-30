@@ -1,5 +1,4 @@
 #!/bin/sh
-echo "build start!"
 origin=`pwd`
 here=`dirname ${0}`
 here=`cd ${here};pwd`

@@ -2,7 +2,7 @@ const fs = require("fs-extra");
 const path = require("path");
 const markdown = require("markdown");
 const iconv = require("iconv-lite");
-import { AbstractSite, FAVICON_PATH, TOPIMAGE_PATH, ABOUTIMAGE_PATH } from "../share_src/index";
+import { AbstractSite } from "../share_src/index";
 export namespace StoreSite {
   const CONFIGFILE_FAVICON:string="favicon.ico";
   const CONFIGFILE_TOPIMAGE:string="topimage.png";
@@ -11,8 +11,11 @@ export namespace StoreSite {
   const CONFIGFILE_SITENAME:string="sitename.txt";
   const CONFIGFILE_COPYRIGHT:string="copyright.txt";
   const CONFIGFILE_ENCODING:string="encoding.txt";
-  const WRITETARGET_SITEINFOJS:string="src/app/outjs/siteinfo.js";
-  const WRITETARGET_ABOUTHTML:string="src/app/about/about.component.html";
+  const FAVICON_PATH:string = path.join("src","favicon.ico");
+  const TOPIMAGE_PATH:string = path.join("src","assets","topimage.png");
+  const ABOUTIMAGE_PATH:string = path.join("src","assets","aboutimage.png");
+  const WRITETARGET_SITEINFOJS:string=path.join("src","app","outjs","siteinfo.js");
+  const WRITETARGET_ABOUTHTML:string=path.join("src","app","about","about.component.html");
   export class SiteInfo extends AbstractSite {
     configdirpath:string;
     encoding:string;

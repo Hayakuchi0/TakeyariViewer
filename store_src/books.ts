@@ -81,17 +81,17 @@ export namespace StoreBook {
       let bookSpaceList:{name:string,path:string}[] = [];
       let bookSpaceDirs:string[] = [];
       let baseDirPathLength:number = path.join(basedirpath,".").length+1;
-      let storeBookSelf = new BookSelf();
       Books.searchDirRoot(bookSpaceDirs, basedirpath,[FILENAME_BOOKSPACE]);
       bookSpaceDirs.forEach(function(bookSpacePath){
-        let spaceName:string = iconv.decode(fs.readFileSync(path.join(path.join(basedirpath,bookSpacePath),FILENAME_BOOKSPACE)),BOOK_ENCODE);
+        let spaceName:string = iconv.decode(fs.readFileSync(path.join(basedirpath,bookSpacePath,FILENAME_BOOKSPACE)),BOOK_ENCODE);
         if(spaceName.endsWith("\n")) {
           spaceName = spaceName.slice(0, -1);
         }
-        bookSpaceList.push({name:spaceName,path:bookSpacePath});
+        bookSpaceList.push({name:spaceName,path:Books.separatorTransformForWeb(bookSpacePath)});
       });
       let outjson = "exports.bookSpaceList = "+ JSON.stringify(bookSpaceList)+";";
       fs.writeFileSync(path.join(scriptdirpath, FILENAME_BOOKSPACEJS),outjson, "utf-8");
+      let storeBookSelf = new BookSelf();
       this.books.forEach(function(value,key,map) {
         storeBookSelf.books.push(value);
       });
@@ -110,6 +110,9 @@ export namespace StoreBook {
     static getArgFromDir(basedirpath:string): string[] {
       let ret:string[] = [];
       Books.searchDirRoot(ret, basedirpath,[FILENAME_BOOKINFO,FILENAME_BOOKJSON]);
+      for(let i = 0;i<ret.length;i++) {
+        ret[i]=Books.separatorTransformForWeb(ret[i]);
+      }
       return ret;
     }
     private static searchDirRoot(ret:string[], basedirpath:string, targets:string[]) {
@@ -136,6 +139,14 @@ export namespace StoreBook {
       } else {
         ret.push(basepath);
       }
+    }
+    private static separatorTransformForWeb(originpath):string {
+      let storepath = originpath;
+      if(path.sep !== '/') {
+        storepath = storepath.split('/').join('\/');
+        storepath = storepath.split(path.sep).join('/');
+      }
+      return storepath;
     }
   }
 }

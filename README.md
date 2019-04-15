@@ -87,15 +87,6 @@ The "topimage.png" display in top page of the portfolio site.
 
 And "favicon.ico" used as favion of the portfolio site.
 
-### Bundle the directory as tree structure
-
-You can bundle direcory, which stored at procedure 1 of "Description", As tree structure.
-The "bookspace.txt" stored to directory, which function as branch of tree structure. 
-
-1. Store the text file "bookspace.txt" and the stored directories at procedure 1 of "Decription" to the directory, In "CONTENT" directory.
-2. write title as branch of tree structure to "bookspace.txt"
-3. Build in accordance with the procedure of "Build", When apply the change.
-
 #### Sending configuration
 
 When you perform build.sh, You can define the communications protocol in the command line argument (You perform `./build.sh <protocol>`), So the made site will sent to the indicated server in `CONFIG/send/<protocol>.json`.
@@ -113,6 +104,15 @@ The only properties you can set are:
 * user
 * password
 * remoteRoot
+
+### Bundle the directory as tree structure
+
+You can bundle direcory, which stored at procedure 1 of "Description", As tree structure.
+The "bookspace.txt" stored to directory, which function as branch of tree structure. 
+
+1. Store the text file "bookspace.txt" and the stored directories at procedure 1 of "Decription" to the directory, In "CONTENT" directory.
+2. write title as branch of tree structure to "bookspace.txt"
+3. Build in accordance with the procedure of "Build", When apply the change.
 
 ## LICENSE
 

@@ -62,12 +62,16 @@ export namespace StoreBook {
       });
     }
     storeImages(basedirpath:string, storedirpath:string):void {
+      if(fs.exists(storedirpath)) {
+        fs.removeSync(storedirpath);
+      }
+      fs.mkdirsSync(storedirpath);
       this.books.forEach(function(value, key, map) {
         value.storeCopyBook(basedirpath,storedirpath);
       });
       fs.writeFileSync(path.join(storedirpath, FILENAME_BOOKSLIST),JSON.stringify(this.getBookListJson()), "utf-8");
     }
-    storeJS(scriptdirpath,basedirpath):void {
+    storeJS(basedirpath:string,scriptdirpath:string):void {
       this.storeBookList(scriptdirpath);
       this.storeBookSpace(scriptdirpath,basedirpath);
     }

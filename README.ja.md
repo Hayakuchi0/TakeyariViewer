@@ -43,8 +43,6 @@ $ ng serve
 
 ## ビルド手順
 
-### Linux
-
 プロジェクトディレクトリ内で`./build.sh`を実行してください。
 そうすると`dist/`ディレクトリ内にポートフォリオサイトが生成されます。
 
@@ -91,6 +89,22 @@ favicon.icoという画像ファイルが、サイトのfaviconとして使用�
 encodint.txt内に記入された文字コードが、CONFIGディレクトリ内のファイルで使用される。
 これは「詳細」におけるbookinfo.txt及び「ディレクトリをまとめる」におけるbookspace.txtでも適用される。
 デフォルトは「utf-8」
+
+#### 送信設定
+
+build.shの実行時、コマンドライン引数に通信プロトコルを指定する(つまり`./build.sh <protocol>`を実行する)と、`CONFIG/send/<protocol>.json`内に記述された送信先へFTP通信でサイトを送信する。
+例えば、ftp通信でサイトを送信したい場合、`./build.sh ftp`と指定すると、`CONFIG/send/ftp.json`内の設定に従いサイトを送信する。
+現在使用可能なプロトコルはftpのみ。
+
+##### ftp
+
+[ftp-deploy](https://www.npmjs.com/package/ftp-deploy)に基づいて設定可能。
+設定可能な項目は以下の通り。
+* host
+* port
+* user
+* password
+* remoteRoot
 
 ### ディレクトリをまとめる
 

@@ -96,6 +96,23 @@ The "bookspace.txt" stored to directory, which function as branch of tree struct
 2. write title as branch of tree structure to "bookspace.txt"
 3. Build in accordance with the procedure of "Build", When apply the change.
 
+#### Sending configuration
+
+When you perform build.sh, You can define the communications protocol in the command line argument (You perform `./build.sh <protocol>`), So the made site will sent to the indicated server in `CONFIG/send/<protocol>.json`.
+
+For example, When you want to send site with ftp, You have to perform `./build.sh ftp`. So the made site will sent to server in accordance with `CONFIG/send/ftp.json`.
+
+You can use protocol is ftp only at now.
+
+##### Ftp
+
+The can use config indicate by [ftp-deploy](https://www.npmjs.com/package/ftp-deploy).
+The only properties you can set are:
+* host
+* port
+* user
+* password
+* remoteRoot
 
 ## LICENSE
 

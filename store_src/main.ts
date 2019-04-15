@@ -5,10 +5,12 @@ let basedirpath = "./CONTENT";
 let storedirpath = "./src/assets/CONTENT/";
 let scriptdirpath = "./src/app/outjs/";
 let configdirpath = "./CONFIG";
-fs.mkdirs(basedirpath);
-fs.mkdirs(storedirpath);
-fs.mkdirs(scriptdirpath);
-fs.mkdirs(configdirpath);
+fs.mkdirsSync(basedirpath);
+fs.mkdirsSync(configdirpath);
+if(fs.exists(scriptdirpath)) {
+  fs.removeSync(scriptdirpath);
+}
+fs.mkdirsSync(scriptdirpath);
 let siteinfo = new StoreSite.SiteInfo(configdirpath);
 siteinfo.configCopy();
 StoreBook.BOOK_ENCODE = siteinfo.encoding;
@@ -16,4 +18,4 @@ console.log(siteinfo.encoding);
 let args = StoreBook.Books.getArgFromDir(basedirpath);
 let books = new StoreBook.Books(args,basedirpath);
 books.storeImages(basedirpath, storedirpath);
-books.storeJS(scriptdirpath,basedirpath);
+books.storeJS(basedirpath,scriptdirpath);

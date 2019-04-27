@@ -20,12 +20,16 @@ export class Ftp extends Sender {
     ftp.on('uploaded', function(data) {
       console.log(data);
     });
-    ftp.deploy(conf, function(err,res){
-      if(err) {
-        console.log(err);
-      } else {
-        console.log('finished: uploaded');
-      }
-    });
+    if(this.config["password"] == "") {
+      ftp.deploy(conf, function(err,res){
+        if(err) {
+          console.log(err);
+        } else {
+          console.log('finished: uploaded');
+        }
+      });
+    } else {
+      console.log("Error:Failed the sending with ftp, Because password is empty.");
+    }
   }
 }

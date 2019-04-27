@@ -20,7 +20,7 @@ export class Ftp extends Sender {
     ftp.on('uploaded', function(data) {
       console.log(data);
     });
-    if(this.config["password"] == "") {
+    if(this.config["password"] != "") {
       ftp.deploy(conf, function(err,res){
         if(err) {
           console.log(err);

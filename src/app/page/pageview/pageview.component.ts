@@ -76,12 +76,20 @@ export class PageviewComponent implements OnInit, BooksListener, PagecontrolList
     return (this.pageType === ContentType.OBJECT);
   }
   get pageId():string {
-    if(this.pageIsImg) {
-      return "viewingImg";
-    } else if(this.pageIsVideo) {
-      return "viewingVideo";
+    return this.getPageIdsString(this.pageType);
+  }
+  getPageIdsString(contentType :ContentType):string {
+    switch(contentType) {
+      case ContentType.IMAGE:
+          return "viewingImg";
+        break;
+      case ContentType.VIDEO:
+          return "viewingVideo";
+        break;
+      default:
+        return "viewingObject";
+        break;
     }
-    return "viewingObject";
   }
   onSetX(beforeX:number, beforeY:number):void {
     this.onReadObject();
@@ -207,6 +215,9 @@ export class PageviewComponent implements OnInit, BooksListener, PagecontrolList
       if(this.pageIsImg) {
         objectHeight = objecttag["naturalHeight"];
         objectWidth = objecttag["naturalWidth"];
+      } else if(this.pageIsVideo) {
+        let videotag = <HTMLVideoElement>objecttag;
+        videotag.controls = true;
       }
       let spaceWidth:number = dataspace.offsetWidth;
       let spaceHeight:number = dataspace.offsetHeight;
@@ -243,16 +254,17 @@ export class PageviewComponent implements OnInit, BooksListener, PagecontrolList
         objecttag["width"] = drawWidth.toString();
       }
       if(!isNaN(drawHeight)) {
+        let videotag = document.getElementById(this.getPageIdsString(ContentType.VIDEO));
+        videotag["height"]= "0px";
+        let imgtag = document.getElementById(this.getPageIdsString(ContentType.IMAGE));
+        imgtag["height"]= "0px";
+        let objtag = document.getElementById(this.getPageIdsString(ContentType.OBJECT));
+        objtag["height"]= "0px";
         objecttag["height"] = drawHeight.toString();
       }
       objecttag.style["left"] = drawLeft.toString() + "px";
       objecttag.style["top"] = drawTop.toString() + "px";
       objecttag.style.transform = "rotate(" + deg.toString() + "deg)";
-      if(this.pageIsVideo) {
-        let videotag = <HTMLVideoElement>objecttag;
-        videotag.controls = true;
-        videotag.load();
-      }
     }
   }
   ngOnInit() {

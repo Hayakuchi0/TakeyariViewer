@@ -199,7 +199,6 @@ export class PageviewComponent implements OnInit, BooksListener, PagecontrolList
     let objecttag = document.getElementById(this.pageId);
     let dataspace = document.getElementById("dataspace");
     if(dataspace && objecttag) {
-      console.log(objecttag);
       dataspace.style.height = this.height;
       let deg:number = this.book.spindeg;
       let rad = deg*Math.PI/180;
@@ -249,6 +248,11 @@ export class PageviewComponent implements OnInit, BooksListener, PagecontrolList
       objecttag.style["left"] = drawLeft.toString() + "px";
       objecttag.style["top"] = drawTop.toString() + "px";
       objecttag.style.transform = "rotate(" + deg.toString() + "deg)";
+      if(this.pageIsVideo) {
+        let videotag = <HTMLVideoElement>objecttag;
+        videotag.controls = true;
+        videotag.load();
+      }
     }
   }
   ngOnInit() {

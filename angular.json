@@ -134,5 +134,8 @@
       }
     }
   },
-  "defaultProject": "TakeyariViewer"
+  "defaultProject": "TakeyariViewer",
+  "cli": {
+    "analytics": "95dd339d-244e-4e01-8c4e-0dd4fba98551"
+  }
 }
